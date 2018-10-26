@@ -1,0 +1,31 @@
+# Use the newer Travis-CI build templates based on the
+# Debian Linux distribution "Trusty" release.
+os:             linux
+dist:           trusty
+
+# Set the version of Go.
+language:       go
+go:             1.11
+
+# All jobs require Docker.
+sudo:           required
+services:       docker
+
+# Always set the project's Go import path to ensure that forked
+# builds get cloned to the correct location.
+go_import_path: sigs.k8s.io/cluster-api-provider-vsphere
+
+jobs:
+  include:
+
+    # The "build" stage builds the cloud provider when requested with a commit
+    # message trigger.
+    - stage:          build
+      sudo:           false
+      services:       false
+      before_install:
+        - REPO_SLUG_SHA=$(echo $(TRAVIS_REPO_SLUG) | sha1sum | cut -c1-7); export REPO_SLUG_SHA; echo "REPO_SLUG_SHA=${REPO_SLUG_SHA}"
+      install:
+        - make depend
+      script:
+        - make build
