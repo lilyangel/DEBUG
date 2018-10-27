@@ -19,6 +19,6 @@ You can reach the maintainers of this project at:
 
 Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
 
-### Quick Start
+### Quick Starts
 
 Go [here](docs/quickstart.md) for an example of how to get up and going with the cluster api using vSphere.
